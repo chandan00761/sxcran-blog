@@ -24,9 +24,10 @@ with open('D:/secret.txt') as f:
 	SECRET_KEY = f.read() #'v&_u8=t0=i*q_%oknsy^knttz#$vj+9l2r4nraw$j7n13+wtox'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['devbranch.pythonanywhere.com',
+                '*']
 
 
 # Application definition
@@ -38,8 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'users',
-	'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -79,12 +78,8 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blog',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
