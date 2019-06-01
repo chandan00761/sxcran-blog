@@ -3,6 +3,8 @@
 New Post
 {% endblock %}
 {% block head%}
+<meta name="author" content="Chandan Mahto">
+<meta name="discription" content="Welcome to the blog of Saint Xavier College, Ranchi. Sign up today and share your knowledge with hundreds of students of Xavier College.">
 <style>
 	#newpostcontainer {
 		padding-top: 100px;
@@ -11,7 +13,20 @@ New Post
 {% endblock%}
 {% block body%}
 		<div class="container" id="newpostcontainer">
-			<div>
+		<ul class="nav nav-tabs" id="newPostTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="text-tab" data-toggle="tab" href="#text-post" role="tab" aria-controls="text-post" aria-selected="True"> Text Post </a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="media-tab" data-toggle="tab" href="#media-post" role="tab" aria-controls="media-post" aria-selected="True"> Image/Video Post </a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="link-tab" data-toggle="tab" href="#link-post" role="tab" aria-controls="link-post" aria-selected="True"> Link Post </a>
+			</li>
+		</ul>
+		<div class="tab-content" id="newPostTabContents">
+			<div class="tab-pane fade show active" id="text-post" role="tabpanel" aria-labelledby="text-post">
+				<!-- Form to input text posts -->
 				<form action="{% url 'makepost' %}" method="post">
 					{%csrf_token%}
 					Title
@@ -23,9 +38,47 @@ New Post
 					<textarea class="form-control" type="text" name="POST_BODY" maxlength="1000" rows="10" cols="100" placeholder="Enter the body" required></textarea>
 					<br>
 					<br>
+					<input type="hidden" name="POST_TYPE" value="text">
 					<input class="btn btn-success" type="submit" value="post">
 					<input class="btn btn-danger" type="reset" value="reset">
 				</form>
 			</div>
+			<div class="tab-pane fade " id="media-post" role="tabpanel" aria-labelledby="media-post">
+				<!-- Form to post video or image posts -->
+				<form action="{% url 'makepost' %}" method="post">
+					{%csrf_token%}
+					Title
+					<br>
+					<input class="form-control" type="text" name="POST_HEADING" maxlength="150" placeholder="Enter a title" required>
+					<br>
+					Body
+					<br>
+					<input class="form-control" type="url" name="POST_BODY" maxlength="200" placeholder="Enter the link" required>
+					<br>
+					<br>
+					<input type="hidden" name="POST_TYPE" value="media">
+					<input class="btn btn-success" type="submit" value="post">
+					<input class="btn btn-danger" type="reset" value="reset">
+				</form>
+			</div>
+			<div class="tab-pane fade " id="link-post" role="tabpanel" aria-labelledby="link-post">
+				<!-- Form to post links to other websites -->
+				<form action="{% url 'makepost' %}" method="post">
+					{%csrf_token%}
+					Title
+					<br>
+					<input class="form-control" type="text" name="POST_HEADING" maxlength="150" placeholder="Enter a title" required>
+					<br>
+					Body
+					<br>
+					<input class="form-control" type="url" name="POST_BODY" maxlength="200" placeholder="Enter the link" required>
+					<br>
+					<br>
+					<input type="hidden" name="POST_TYPE" value="url">
+					<input class="btn btn-success" type="submit" value="post">
+					<input class="btn btn-danger" type="reset" value="reset">
+				</form>
+			</div>
+		</div>
 		</div>
 {%endblock%}

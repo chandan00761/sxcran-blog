@@ -12,7 +12,7 @@
 #//************************************************************************//#
 
 from django import forms
-
+from django.core.exceptions import ValidationError
 #//************************************************************************//#
 
 class signupform(forms.Form):
@@ -60,6 +60,14 @@ class commentform(forms.Form):
 class resetform(forms.Form):
 	''' This takes roll of the user
 	'''
-	USERNAME = forms.CharField(max_length=12)
+
+	PASSWORD = forms.CharField(max_length=30)
+	PASSWORD2 = forms.CharField(max_length=30)
+
+#//************************************************************************//#
+
+class authenticationform(forms.Form):
+	PASSWORD = forms.CharField(max_length=30)
+
 #//************************************************************************//#
 #//************************************************************************//#

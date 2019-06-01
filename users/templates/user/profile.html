@@ -1,25 +1,121 @@
 {% extends 'user/default.html' %}
+{% load static %}
 {% block title %}
-			Profile - {{first_name}} {{last_name}}
+Profile - {{first_name}} {{last_name}}
 {% endblock %}
 {% block head%}
+<meta name="author" content ="Chandan Mahto">
+<meta name="description" content="It is a profile page to display the details of registered users in sxcranblog.org">
+<meta name="twitter:title" content="{{first_name}} {{last_name}} profile at sxcranblog.org">
 <style>
 	.content{
 		margin-top : 5%;
 	}
 	.profile{
 		padding:0;
+		float: left;
+	}
+	#userdetails{
+		padding-left : 10%;
+	}
+	h1 {
+		font-size : 2em;
 	}
 </style>
+<script src="{% static 'user/profile.js' %}" charset="utf-8"></script>
 {%endblock%}
 {% block body%}
-<div class="container-fluid content">
-			 <div class="profile col-lg-4 col-md-4"><img src="https://www.w3schools.com/w3css/img_avatar3.png" width="100%" height="50%"></div>
-			 <div class="profile col-lg-8 col-md-8">
-					 <h1>USERNAME </h1>
-					 <h1>First Name</h1>
-					 <h1>Last Name</h1>
-					 <h1>Display Name</h1>
-					 <h1>Email </h1></div>
+<div class="container content">
+	<div class="profile col-lg-4 col-md-4">
+		<img src="https://www.w3schools.com/w3css/img_avatar3.png" width="100%" height="50%"></div>
+		<div class="profile col-lg-8 col-md-8" id="userdetails">
+			<h1>Roll : {{username}} </h1>
+			<h1>First Name : {{first_name}}</h1>
+			<h1>Last Name : {{last_name}}</h1>
+			<!-- <h1>{{display_name}}</h1> -->
+			<h1>Email : {{email}} </h1>
+			<button type="button" class="btn btn-danger" id="removeaccount" data-toggle="modal" data-target="#confirmationModal">
+				Remove Account
+			</button>
+			<button type="button" class="btn btn-danger" id="changePassword" data-toggle="modal" data-target="#userAuthModal">
+				Change Password
+			</button>
+			<!-- remove account model -->
+			<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="confirmationModalLabel">Confirmation Required</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							Are you sure you want to deactivate your account?
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#userAuthModal">
+								Yes
+							</button>
+							<button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- change password modal in case of forgot password-->
+			<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordLabel" aria-hidden="True">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="changePasswordLabel">
+								Enter the code sent to your email
+							</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form class="form-group" action="" method="post">
+								{% csrf_token %}
+								<input type="password" class="form-control" required>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- user authentication modal -->
+			<div class="modal fade" id="userAuthModal" tabindex="-1" role="dialog" aria-labelledby="userAuthModalLabel" aria-hidden="True">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="userAuthModalLabel">
+								Please enter your password
+							</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form name="authenticationform" class="form-group" action="{% url 'auth' %}" method="POST">
+								{% csrf_token %}
+								<input type="password" name="PASSWORD" class="form-control" required>
+								<br>
+								<input type="submit" class="btn btn-success" value="Submit">
+							</form>
+							<a href="#">
+								Click here if you forgot your password
+							</a>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+</div>
 {%endblock%}

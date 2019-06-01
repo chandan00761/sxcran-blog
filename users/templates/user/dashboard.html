@@ -59,7 +59,15 @@
 				</div>
 				<div class="float-left mx-2">
 					<a class="post-heading text-decoration-none" href="{% url 'showpost' post.id %}">{{post.post_heading}}</a>
+					{% if post.post_type == 'T' %}
 					<h3 class="post-body">{{post.post_body}}</h3>
+					{% endif %}
+					{% if post.post_type == 'M' %}
+					<h3 class="post-body">{{post.post_url}}</h3>
+					{% endif %}
+					{% if post.post_type == 'U' %}
+					<h3 class="post-body">{{post.post_url}}</h3>
+					{% endif %}
 				</div>
 				</div>
 			<div class="col-lg-2 col-md-2 hidden-xs hidden-sm"></div>

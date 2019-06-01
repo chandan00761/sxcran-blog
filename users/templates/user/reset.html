@@ -1,1 +1,16 @@
 {% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form action="{% url 'changepassword' user_token=user_token %}" method="POST">
+      {% csrf_token %}
+      <input type="password" name="PASSWORD" required>
+      <input type="password" name="PASSWORD2" required>
+      <input type="submit" value="submit">
+    </form>
+  </body>
+</html>

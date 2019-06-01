@@ -10,7 +10,7 @@
 	.display-5{
 		font-size : 1.5em;
 	}
-	</style>
+</style>
 {% endblock%}
 {% block body%}
 <div class="jumbotron jumbotron-fluid my-10 px-5">
@@ -23,9 +23,19 @@
 				Time : {{post.post_time}}
     </div>
 		<hr>
+		{% if post.post_body %}
     <div class="display-5">
             <p>{{post.post_body}}</p>
     </div>
+		{% else %}
+		<div class="display-5">
+						{% if post.post_type == 'M' %}
+							<iframe src="{{post.post_url}}" width="" height=""></iframe>
+						{% else %}
+							<p> <a href="{{post.post_url}}"> {{post.post_url}} </a></p>
+						{% endif %}
+    </div>
+		{% endif %}
 </div>
     <div class="container mx-4	">
         <h3>Comments</h3>
