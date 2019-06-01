@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 with open('D:/secret.txt') as f:
-	SECRET_KEY = f.read() #'v&_u8=t0=i*q_%oknsy^knttz#$vj+9l2r4nraw$j7n13+wtox'
+	SECRET_KEY = f.read() 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
